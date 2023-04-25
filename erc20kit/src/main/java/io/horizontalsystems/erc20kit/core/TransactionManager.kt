@@ -37,7 +37,7 @@ class TransactionManager(
     }
 
     fun buildTransferTransactionData(to: Address, value: BigInteger): TransactionData {
-        return TransactionData(to = contractAddress, value = BigInteger.ZERO, TransferMethod(to, value).encodedABI())
+        return TransactionData(to = to, value = BigInteger.ZERO, TransferMethod(to, value).encodedABI())
     }
 
     fun getTransactionsAsync(fromHash: ByteArray?, limit: Int?): Single<List<FullTransaction>> {
