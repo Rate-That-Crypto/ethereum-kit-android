@@ -37,13 +37,13 @@ class TransactionManager(
     }
 
     fun buildTransferTransactionData(to: Address, value: BigInteger): TransactionData {
-        return if(to.hex != "0x0000000000000000000000000000000000001010"){
+        return if(contractAddress.hex != "0x0000000000000000000000000000000000001010"){
             TransactionData(to = contractAddress, value = BigInteger.ZERO, TransferMethod(to, value).encodedABI())
         } else {
             TransactionData(to = to, value = value, TransferMethod(to, value).encodedABI())
         }
     }
-    
+
     fun getTransactionsAsync(fromHash: ByteArray?, limit: Int?): Single<List<FullTransaction>> {
         return ethereumKit.getFullTransactionsAsync(tags, fromHash, limit)
     }
