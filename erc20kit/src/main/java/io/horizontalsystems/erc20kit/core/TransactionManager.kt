@@ -37,7 +37,14 @@ class TransactionManager(
     }
 
     fun buildTransferTransactionData(to: Address, value: BigInteger): TransactionData {
-        return TransactionData(to = to, value = value, TransferMethod(to, value).encodedABI())
+        val isMatic = to.hex == "0x0000000000000000000000000000000000001010"
+        val toAddress = if (isMatic) to else contractAddress
+        val valueAmount = if (isMatic) value else BigUInt.ZERO
+        return TransactionData(
+                to = toAddress,
+                value = valueAmount,
+                input = TransferMethod(to, value).encodedABI()
+        )
     }
 
     fun getTransactionsAsync(fromHash: ByteArray?, limit: Int?): Single<List<FullTransaction>> {
