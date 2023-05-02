@@ -13,7 +13,7 @@ class TransactionManager(ethereumKit: EthereumKit) {
     fun transferEip721TransactionData(contractAddress: Address, to: Address, tokenId: BigInteger) =
         TransactionData(
             to = to,
-            value = value,
+            value = BigInteger.ZERO,
             input = Eip721SafeTransferFromMethod(address, to, tokenId, byteArrayOf()).encodedABI()
         )
 
